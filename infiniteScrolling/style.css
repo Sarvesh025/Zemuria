@@ -1,0 +1,27 @@
+#toast{
+    position:fixed;
+    top:50px;
+    right:100px;
+    z-index:99999;
+  }
+  
+  .toast {
+    opacity:0;
+  }
+  
+  .toast.success{
+    background:green;
+  }
+  
+  .toast.warning{
+    background:yellow;
+  }
+  
+  .toast.error{
+    background:red;
+  }
+  
+  .toast.show {
+    opacity:1;
+  }
+  
