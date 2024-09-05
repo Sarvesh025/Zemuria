@@ -6,7 +6,7 @@ function rateLimit(fn, timeout){
       const now = Date.now();
       
       if(isPending){
-        alert(`wait for ${timeout} seconds`);
+        alert(`wait for ${timeout} milliseconds`);
         return;
       }
      if(now - lastCallTime > timeout){
@@ -19,20 +19,23 @@ function rateLimit(fn, timeout){
      }
       else{
         alert(`wait for ${timeout} seconds`);
+        const remainingTime = timeout - (now - lastExecuted);
+        document.getElementById('rateLimitButton').setAttribute('disabled', '');
+                  document.getElementById('message').innerText = `Please wait ${remainingTime} milliseconds.`;
+                  setTimeout(() => { document.getElementById('rateLimitButton').removeAttribute('disabled'); 
+                  document.getElementById('message').innerText = `ready`;
+                  }, timeout)
       }
     };
   }
   
   const compute = ()=>{
-    console.log('start');
-    setTimeout(()=>{
-      console.log('finished');
-    }, 25*60*1000); // 25 minutes of computation.
+    document.getElementById('message').innerText = `Function executed at: ${new Date().toLocaleTimeString()}`;
   };
   
   const rateLimitedFunc = rateLimit(compute, 2000);
   
-  rateLimitedFunc();
+  document.getElementById('rateLimitButton').addEventListener('click', rateLimitedFunc);
   setTimeout(()=>{
       rateLimitedFunc(); // allowed after 2 seconds.
     }, 2001);
